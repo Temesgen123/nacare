@@ -122,8 +122,8 @@ export default function HomePage() {
         <div className={s.featuresGrid}>
           {[
             {
-              title: 'Patient Management',
-              desc: 'Register patients, track medical history, medications, allergies and consent — all in one structured record.',
+              title: 'About',
+              desc: '...',
               icon: (
                 <path
                   strokeLinecap="round"
@@ -134,8 +134,8 @@ export default function HomePage() {
               ),
             },
             {
-              title: 'Visit Tracking',
-              desc: 'Record vital signs, general examination findings, and system reviews for every home visit made by your team.',
+              title: 'Services',
+              desc: '...',
               icon: (
                 <path
                   strokeLinecap="round"
@@ -146,8 +146,8 @@ export default function HomePage() {
               ),
             },
             {
-              title: 'Lab Results',
-              desc: 'Log FBS, CBC, lipid profiles and more. Flag critical values, link to visits, and record doctor assessments.',
+              title: 'Contact',
+              desc: '...',
               icon: (
                 <path
                   strokeLinecap="round"
