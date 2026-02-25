@@ -89,7 +89,7 @@ export default function HomePage() {
         <div className={s.heroRight}>
           <div className={s.heroImageWrap} />
           <div className={s.heroImageOverlay} />
-          <div className={s.heroCard}>
+          {/* <div className={s.heroCard}>
             <div className={s.heroCardIcon}>
               <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -100,11 +100,11 @@ export default function HomePage() {
                 />
               </svg>
             </div>
-            {/* <div className={s.heroCardTitle}>Patient Records</div>
+            <div className={s.heroCardTitle}>Patient Records</div>
             <div className={s.heroCardSub}>
               Full medical history at a glance
-            </div> */}
-          </div>
+            </div>
+          </div> */}
           {/* <div className={s.heroCard2}>
             <div className={s.heroCard2Title}>Lab Results</div>
             <div className={s.heroCard2Value}>CBC</div>
