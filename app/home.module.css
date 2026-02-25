@@ -221,8 +221,8 @@
   inset: 0;
   background:
     linear-gradient(135deg, rgba(15, 123, 108, 0.15) 0%, transparent 50%),
-    url('https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=900&q=80&fit=crop')
-      center/cover no-repeat;
+    /* url('https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=900&q=80&fit=crop') */
+    url('/doctor.png') center/cover no-repeat;
 }
 .heroImageOverlay {
   position: absolute;
