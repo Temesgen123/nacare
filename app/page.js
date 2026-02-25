@@ -100,10 +100,10 @@ export default function HomePage() {
                 />
               </svg>
             </div>
-            <div className={s.heroCardTitle}>Patient Records</div>
+            {/* <div className={s.heroCardTitle}>Patient Records</div>
             <div className={s.heroCardSub}>
               Full medical history at a glance
-            </div>
+            </div> */}
           </div>
           {/* <div className={s.heroCard2}>
             <div className={s.heroCard2Title}>Lab Results</div>
