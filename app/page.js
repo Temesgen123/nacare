@@ -47,9 +47,9 @@ export default function HomePage() {
             Home Healthcare Management
           </div>
           <h1 className={s.heroTitle}>
-            Compassionate care,
-            <br />
-            <em>precisely managed</em>
+            Professional Home Medical Checkup
+            {/* <br />
+            <em>precisely managed</em> */}
           </h1>
           <p className={s.heroSubtitle}>
             Nacare Health brings together patient records, visit tracking, and
