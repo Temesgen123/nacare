@@ -105,11 +105,11 @@ export default function HomePage() {
               Full medical history at a glance
             </div>
           </div>
-          <div className={s.heroCard2}>
+          {/* <div className={s.heroCard2}>
             <div className={s.heroCard2Title}>Lab Results</div>
             <div className={s.heroCard2Value}>CBC</div>
             <div className={s.heroCard2Sub}>Results received today</div>
-          </div>
+          </div> */}
         </div>
       </section>
 
