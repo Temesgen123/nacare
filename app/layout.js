@@ -7,8 +7,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <title>Nacare Clinic</title>
-        <meta name="description" content="Nacare Clinic Management System" />
+        <title>Nacare Health</title>
+        <meta name="description" content="Nacare Health Management System" />
       </head>
       <body>
         {children}

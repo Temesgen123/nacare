@@ -21,7 +21,7 @@ export default function HomePage() {
               />
             </svg>
           </div>
-          <span className={s.navName}>Nacare Clinic</span>
+          <span className={s.navName}>Nacare Health</span>
         </a>
         <div className={s.navLinks}>
           <button
@@ -52,7 +52,7 @@ export default function HomePage() {
             <em>precisely managed</em>
           </h1>
           <p className={s.heroSubtitle}>
-            Nacare Clinic brings together patient records, visit tracking, and
+            Nacare Health brings together patient records, visit tracking, and
             lab results into one seamless system — designed for the teams who
             deliver care at home.
           </p>
@@ -117,7 +117,7 @@ export default function HomePage() {
       <section className={s.features}>
         <div className={s.featuresHeader}>
           <div className={s.sectionTag}>What we offer</div>
-          <h2 className={s.sectionTitle}>Everything your clinic needs</h2>
+          <h2 className={s.sectionTitle}>Everything your need</h2>
         </div>
         <div className={s.featuresGrid}>
           {[
@@ -175,7 +175,7 @@ export default function HomePage() {
       <section className={s.ctaBanner}>
         <div className={s.ctaTitle}>Ready to get started?</div>
         <div className={s.ctaSub}>
-          Join Nacare Clinic&apos;s management system today.
+          Join Nacare Health&apos;s management system today.
         </div>
         <button className={s.btnCta} onClick={() => router.push('/register')}>
           Create Your Account
@@ -184,9 +184,9 @@ export default function HomePage() {
 
       {/* ── FOOTER ── */}
       <footer className={s.footer}>
-        <div className={s.footerBrand}>Nacare Clinic</div>
+        <div className={s.footerBrand}>Nacare Health</div>
         <div className={s.footerCopy}>
-          &copy; {new Date().getFullYear()} Nacare Clinic. All rights reserved.
+          &copy; {new Date().getFullYear()} Nacare Health. All rights reserved.
         </div>
       </footer>
     </div>
