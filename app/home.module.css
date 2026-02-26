@@ -137,20 +137,19 @@
   color: var(--teal);
 }
 .heroSubtitle {
-  /* font-size: 1.0625rem; */
-  font-size: 1.25rem;
-  color: var(--muted);
-  line-height: 1.25;
-  /* line-height: 1.7; */
-  max-width: 440px;
-  margin-bottom: 2.5rem;
-  /* font-weight: 300; */
-  /* font-weight: 200; */
+  /* new */
+  font-family:
+    'Inter',
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-size: clamp(1rem, 2.2vw, 1.15rem);
   font-weight: 400;
-  color: #4a5568;
-  opacity: 0.9;
-  max-width: 650px;
-  margin: 1rem;
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+  color: #5f6c72;
+  max-width: 52ch;
 }
 .heroCtas {
   display: flex;
