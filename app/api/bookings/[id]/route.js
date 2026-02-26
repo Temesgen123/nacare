@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import connectDB from '../../../../lib/mongodb';
-import Booking from '../../../../models/Booking';
+import Bookiing from '../../../../models/Booking';
 
 // GET single booking by ID or confirmation code
 export async function GET(request, { params }) {
