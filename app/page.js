@@ -59,7 +59,7 @@ export default function HomePage() {
             Doctor visits, lab testing, and chronic care delivered to your home.
           </p>
           <ul
-            className={`${s.heroSubtitle} pl-12 md:pl-32 list-disc mt-3 mb-5 leading-normal`}
+            className={`${s.heroSubtitle} pl-12 md:pl-24 list-disc mt-3 mb-5 leading-normal`}
           >
             <li>Licenced Medical Professional.</li>
             <li>Confidential & Secure.</li>
