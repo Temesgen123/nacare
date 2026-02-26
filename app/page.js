@@ -58,6 +58,14 @@ export default function HomePage() {
             deliver care at home. */}
             Doctor visits, lab testing, and chronic care delivered to your home.
           </p>
+          <ul
+            className={`${s.heroSubtitle} pl-32 list-disc mt-3 mb-5 leading-normal`}
+          >
+            <li>Licenced Medical Professional.</li>
+            <li>Confidential & Secure.</li>
+            <li>Fast Response.</li>
+            <li>Addis Ababa Coverage.</li>
+          </ul>
           <div className={s.heroCtas}>
             <button
               className={s.btnPrimary}
