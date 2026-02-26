@@ -78,7 +78,7 @@ export default function ContactPage() {
         </div>
       </nav>
 
-      {/* ── CONTACT HERO ── */}
+      {/* ── CONTACT HERO ──
       <section className={s.hero}>
         <div className={s.heroLeft}>
           <div className={s.heroEyebrow}>
@@ -95,16 +95,20 @@ export default function ContactPage() {
           <div className={s.heroImageWrap} />
           <div className={s.heroImageOverlay} />
         </div>
-      </section>
+      </section> */}
 
       {/* ── CONTACT INFO & FORM ── */}
       <section className={s.features}>
         <div
-          style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}
+          style={{
+            maxWidth: '800px',
+            margin: '0 auto',
+            padding: '0 1rem',
+          }}
         >
-          <div className={s.contactGrid}>
+          <div>
             {/* Contact Information */}
-            <div>
+            {/* <div>
               <div className={s.sectionTag}>Contact Information</div>
               <h2 className={s.sectionTitle}>Reach Us</h2>
 
@@ -320,12 +324,12 @@ export default function ContactPage() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* Contact Form */}
             <div>
-              <div className={s.sectionTag}>Send Us a Message</div>
-              <h2 className={s.sectionTitle}>Contact Form</h2>
+              {/* <div className={s.sectionTag}>Send Us a Message</div> */}
+              <h2 className={s.sectionTitle}>Appointment Booking Form</h2>
 
               {submitted && (
                 <div
@@ -461,36 +465,6 @@ export default function ContactPage() {
                   />
                 </div>
 
-                <div style={{ marginBottom: '1.25rem' }}>
-                  <label
-                    style={{
-                      display: 'block',
-                      fontSize: '0.875rem',
-                      fontWeight: '600',
-                      marginBottom: '0.5rem',
-                      color: '#374151',
-                    }}
-                  >
-                    Message *
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={5}
-                    style={{
-                      width: '100%',
-                      padding: '0.75rem',
-                      border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '1rem',
-                      resize: 'vertical',
-                    }}
-                    placeholder="Tell us more about your inquiry..."
-                  />
-                </div>
-
                 <button
                   type="submit"
                   disabled={loading}
@@ -506,7 +480,7 @@ export default function ContactPage() {
                     cursor: loading ? 'not-allowed' : 'pointer',
                   }}
                 >
-                  {loading ? 'Sending...' : 'Send Message'}
+                  {loading ? 'Sending...' : 'Submit'}
                 </button>
               </form>
             </div>
@@ -515,7 +489,7 @@ export default function ContactPage() {
       </section>
 
       {/* ── FAQ SECTION ── */}
-      <section
+      {/* <section
         className={s.features}
         style={{ background: '#f9fafb', padding: '4rem 1rem' }}
       >
@@ -561,7 +535,7 @@ export default function ContactPage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ── CTA BANNER ── */}
       <section className={s.ctaBanner}>
