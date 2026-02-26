@@ -78,7 +78,7 @@ export default function ContactPage() {
         </div>
       </nav>
       {/* ── CONTACT HERO ── */}
-      <section className={s.hero} style={{ marginBottom: '64px' }}>
+      <section className={s.hero}>
         <div className={s.heroLeft}>
           <div className={s.heroImageWrap} />
           <div className={s.heroImageOverlay} />
