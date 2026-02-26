@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import connectDB from '../../../../lib/mongodb';
-import Booking from '../../../../models/Booking';
+// import Booking from '../../../../models/Booking';
+import Bookedappointment from '../../../../models/Bookedappointment';
 
 // GET single booking by ID or confirmation code
 export async function GET(request, { params }) {
@@ -11,11 +12,11 @@ export async function GET(request, { params }) {
 
     // Check if it's a confirmation code (starts with NAC) or MongoDB ID
     if (params.id.startsWith('NAC')) {
-      booking = await Booking.findOne({
+      booking = await Bookedappointment.findOne({
         confirmationCode: params.id.toUpperCase(),
       }).lean();
     } else {
-      booking = await Booking.findById(params.id).lean();
+      booking = await Bookedappointment.findById(params.id).lean();
     }
 
     if (!booking) {

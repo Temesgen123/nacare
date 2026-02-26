@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import connectDB from '../../../lib/mongodb';
-import Booking from '../../../models/Booking';
+// import Booking from '../../../models/Booking';
+import Bookedappointment from '../../../models/Bookedappointment';
 
 // GET all bookings (for admin/staff dashboard)
 export async function GET(request) {
@@ -61,13 +62,13 @@ export async function GET(request) {
       query.confirmationCode = confirmationCode.toUpperCase();
     }
 
-    const bookings = await Booking.find(query)
+    const bookings = await Bookedappointment.find(query)
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
       .lean();
 
-    const total = await Booking.countDocuments(query);
+    const total = await Bookedappointment.countDocuments(query);
 
     return NextResponse.json({
       bookings,
@@ -131,7 +132,7 @@ export async function POST(request) {
     }
 
     // Check for duplicate booking on same date/time
-    const existingBooking = await Booking.findOne({
+    const existingBooking = await Bookedappointment.findOne({
       $or: [
         { email: body.email.toLowerCase() },
         { phoneNumber: body.phoneNumber },
@@ -167,7 +168,7 @@ export async function POST(request) {
     };
 
     // Create new booking
-    const booking = new Booking(bookingData);
+    const booking = new Bookedappointment(bookingData);
     await booking.save();
 
     // TODO: Send confirmation email to user

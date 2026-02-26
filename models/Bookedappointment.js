@@ -116,5 +116,5 @@ BookingSchema.index({ status: 1 });
 BookingSchema.index({ preferredDate: 1 });
 BookingSchema.index({ createdAt: -1 });
 
-export default mongoose.models.Booking ||
-  mongoose.model('Booking', BookingSchema);
+export default mongoose.models.Bookedappointment ||
+  mongoose.model('Bookedappointment', BookingSchema);
