@@ -51,7 +51,7 @@ export default function AboutPage() {
             About Nacare Health
           </div>
           <h1 className={s.heroTitle}>
-            Bringing Quality Healthcare to Your Doorstep
+            Bringing Quality Healthcare to Your Doorstep.
           </h1>
           <p className={s.heroSubtitle}>
             Nacare Health is dedicated to providing professional home medical
