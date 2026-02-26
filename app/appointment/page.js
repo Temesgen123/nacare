@@ -327,7 +327,7 @@ export default function ContactPage() {
             </div> */}
 
             {/* Contact Form */}
-            <div>
+            <div className="mt-36 md:mt-0">
               {/* <div className={s.sectionTag}>Send Us a Message</div> */}
               <h2 className={s.sectionTitle}>Appointment Booking Form</h2>
 
