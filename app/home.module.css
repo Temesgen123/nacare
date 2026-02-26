@@ -137,12 +137,20 @@
   color: var(--teal);
 }
 .heroSubtitle {
-  font-size: 1.0625rem;
+  /* font-size: 1.0625rem; */
+  font-size: 1.25rem;
   color: var(--muted);
-  line-height: 1.7;
+  line-height: 1.25;
+  /* line-height: 1.7; */
   max-width: 440px;
   margin-bottom: 2.5rem;
-  font-weight: 300;
+  /* font-weight: 300; */
+  /* font-weight: 200; */
+  font-weight: 400;
+  color: #4a5568;
+  opacity: 0.9;
+  max-width: 650px;
+  margin: 1rem;
 }
 .heroCtas {
   display: flex;
@@ -453,6 +461,40 @@
   font-size: 0.8125rem;
   color: rgba(255, 255, 255, 0.35);
   font-weight: 300;
+}
+/* Footer Links Styling */
+.footerLinks {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.footerLinks a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.2s;
+}
+
+.footerLinks a:hover {
+  color: white;
+}
+
+/* Contact page two-column grid */
+.contactGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .contactGrid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ── ANIMATIONS ── */

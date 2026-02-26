@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import s from './home.module.css';
+import Link from 'next/link';
 
 export default function HomePage() {
   const router = useRouter();
@@ -47,28 +48,35 @@ export default function HomePage() {
             Home Healthcare Management
           </div>
           <h1 className={s.heroTitle}>
-            Professional Home Medical Checkup
+            Professional Home Medical Checkups in Addis Ababa
             {/* <br />
             <em>precisely managed</em> */}
           </h1>
           <p className={s.heroSubtitle}>
-            Nacare Health brings together patient records, visit tracking, and
+            {/* Nacare Health brings together patient records, visit tracking, and
             lab results into one seamless system — designed for the teams who
-            deliver care at home.
+            deliver care at home. */}
+            Doctor visits, lab testing, and chronic care delivered to your home.
           </p>
           <div className={s.heroCtas}>
             <button
               className={s.btnPrimary}
+              onClick={() => router.push('/appointment')}
+            >
+              Book Appointment
+            </button>
+            {/* <button
+              className={s.btnPrimary}
               onClick={() => router.push('/register')}
             >
               Create an Account
-            </button>
-            <button
+            </button> */}
+            {/* <button
               className={s.btnOutline}
               onClick={() => router.push('/login')}
             >
               Sign In
-            </button>
+            </button> */}
           </div>
           <div className={s.heroStats}>
             <div>
@@ -85,7 +93,6 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-
         <div className={s.heroRight}>
           <div className={s.heroImageWrap} />
           <div className={s.heroImageOverlay} />
@@ -123,7 +130,7 @@ export default function HomePage() {
           {[
             {
               title: 'About',
-              desc: '...',
+              desc: 'Nacare Health is dedicated to providing professional home medical services in Addis Ababa. We combine modern healthcare technology with compassionate care to serve patients in the comfort of their homes...',
               icon: (
                 <path
                   strokeLinecap="round"
@@ -135,7 +142,7 @@ export default function HomePage() {
             },
             {
               title: 'Services',
-              desc: '...',
+              desc: 'Comprehensive Home Healthcare Services. From routine checkups to specialized care, we bring professional medical services directly to your home in Addis Ababa...',
               icon: (
                 <path
                   strokeLinecap="round"
@@ -147,7 +154,7 @@ export default function HomePage() {
             },
             {
               title: 'Contact',
-              desc: '...',
+              desc: 'Nacare Health  |  Address: Addisu Michael, Addis Ababa   | Phone : +251 911 234 567   |   E-mail : support@nacare.com ...',
               icon: (
                 <path
                   strokeLinecap="round"
@@ -164,7 +171,9 @@ export default function HomePage() {
                   {f.icon}
                 </svg>
               </div>
-              <div className={s.featureTitle}>{f.title}</div>
+              <div className={s.featureTitle}>
+                <Link href={`/${f.title.toLocaleLowerCase()}`}>{f.title}</Link>
+              </div>
               <div className={s.featureDesc}>{f.desc}</div>
             </div>
           ))}

@@ -4,14 +4,12 @@
 import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import AppointmentForm from '../../../../components/forms/AppointmentForm';
-
 function NewAppointmentContent() {
   const searchParams = useSearchParams();
   const patientId = searchParams.get('patientId') || null;
-
   return (
     <div className="px-4 py-8">
-      <div className="max-w-5xl mx-auto mb-6">
+      {/* <div className="max-w-5xl mx-auto mb-6">
         <h1 className="text-2xl font-bold text-gray-900">
           Schedule Appointment
         </h1>
@@ -20,7 +18,8 @@ function NewAppointmentContent() {
           appointment.
         </p>
       </div>
-      <AppointmentForm preselectedPatientId={patientId} />
+      <AppointmentForm preselectedPatientId={patientId} /> */}
+      Under construction!
     </div>
   );
 }
