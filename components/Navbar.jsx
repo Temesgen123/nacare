@@ -44,6 +44,11 @@ export default function Navbar() {
     { name: 'Patients', href: '/dashboard/patients', icon: Users },
     { name: 'Visits', href: '/dashboard/visits', icon: Activity },
     { name: 'Lab Results', href: '/dashboard/lab-results', icon: FileText },
+    {
+      name: 'Bookings',
+      href: '/dashboard/bookings',
+      icon: CalendarClock,
+    },
   ];
 
   const isActive = (href) => pathname === href;
