@@ -124,7 +124,9 @@ export default function HomePage() {
       <section className={s.features}>
         <div className={s.featuresHeader}>
           <div className={s.sectionTag}>What we offer</div>
-          <h2 className={s.sectionTitle}>Everything your need</h2>
+          <h2 className={s.sectionTitle}>
+            Personalized treatment plans designed for your specific needs.
+          </h2>
         </div>
         <div className={s.featuresGrid}>
           {[
@@ -174,7 +176,12 @@ export default function HomePage() {
               <div className={s.featureTitle}>
                 <Link href={`/${f.title.toLocaleLowerCase()}`}>{f.title}</Link>
               </div>
-              <div className={s.featureDesc}>{f.desc}</div>
+              <div className={s.featureDesc}>
+                <Link href={`/${f.title.toLocaleLowerCase()}`}>
+                  {f.desc}
+                  <h2 className="font-bold pt-4 px-auto">Read more &gt; </h2>
+                </Link>
+              </div>
             </div>
           ))}
         </div>
