@@ -31,12 +31,6 @@ export default function HomePage() {
           >
             Sign In
           </button>
-          {/* <button
-            className={s.btnNavPrimary}
-            onClick={() => router.push('/register')}
-          >
-            Get Started
-          </button> */}
         </div>
       </nav>
 
@@ -45,7 +39,7 @@ export default function HomePage() {
         <div className={s.heroLeft}>
           <div className={s.heroEyebrow}>
             <span className={s.heroEyebrowDot} />
-            Home Healthcare Management
+            Home Healthcare
           </div>
           <h1 className={s.heroTitle}>
             Professional Home Medical Checkups in Addis Ababa
