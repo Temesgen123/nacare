@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server';
 import connectDB from '../../../lib/mongodb';
 import Appointment from '../../../models/Appointment';
-import Patient from '../../../models/Patient';
 import { getUserFromRequest } from '../../../lib/auth';
 
-// GET all appointments — filterable, searchable, paginated
+// GET all appointments
 export async function GET(request) {
   try {
     const user = getUserFromRequest(request);
@@ -17,63 +16,61 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const search = searchParams.get('search');
     const status = searchParams.get('status');
-    const date = searchParams.get('date'); // YYYY-MM-DD — filter by single day
-    const upcoming = searchParams.get('upcoming'); // "true" — future only
-    const patientId = searchParams.get('patientId');
+    const upcoming = searchParams.get('upcoming') === 'true';
+    const mine = searchParams.get('mine') === 'true';
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
     const skip = (page - 1) * limit;
 
     let query = {};
 
-    // Server-side enforcement: 'user' role can ONLY ever see their own appointments.
-    // This is not based on a frontend param — it is derived from the verified JWT role.
-    if (user.role === 'user') {
-      query.createdBy = String(user.userId);
+    // Filter by creator for regular users
+    if (user.role === 'user' || mine) {
+      query.createdBy = user.username;
     }
 
-    // Filter by status
-    if (status) query.status = status;
-
-    // Filter by specific patient
-    if (patientId) query.patientId = patientId;
-
-    // Filter by single calendar day
-    if (date) {
-      const start = new Date(date);
-      start.setHours(0, 0, 0, 0);
-      const end = new Date(date);
-      end.setHours(23, 59, 59, 999);
-      query.appointmentDate = { $gte: start, $lte: end };
-    }
-
-    // Show only upcoming (today and future)
-    if (upcoming === 'true' && !date) {
-      const now = new Date();
-      now.setHours(0, 0, 0, 0);
-      query.appointmentDate = { $gte: now };
-    }
-
-    // Search: match existing patients OR walk-in name/phone
+    // Search functionality
     if (search) {
-      const matchingPatients = await Patient.find({
-        $or: [
-          { fullName: { $regex: search, $options: 'i' } },
-          { patientId: { $regex: search, $options: 'i' } },
-          { phoneNumber: { $regex: search, $options: 'i' } },
-        ],
-      })
+      const searchRegex = { $regex: search, $options: 'i' };
+
+      // Try to find by patient ID, name, phone, or assigned staff
+      query.$or = [
+        { assignedTo: searchRegex },
+        { 'walkInPatient.fullName': searchRegex },
+        { 'walkInPatient.phoneNumber': searchRegex },
+      ];
+
+      // Also search in populated patient fields
+      const patients = await mongoose
+        .model('Patient')
+        .find({
+          $or: [
+            { fullName: searchRegex },
+            { patientId: searchRegex },
+            { phoneNumber: searchRegex },
+          ],
+        })
         .select('_id')
         .lean();
 
-      query.$or = [
-        { patientId: { $in: matchingPatients.map((p) => p._id) } },
-        { 'walkInPatient.fullName': { $regex: search, $options: 'i' } },
-        { 'walkInPatient.phoneNumber': { $regex: search, $options: 'i' } },
-        { assignedTo: { $regex: search, $options: 'i' } },
-      ];
+      if (patients.length > 0) {
+        query.$or.push({ patientId: { $in: patients.map((p) => p._id) } });
+      }
     }
 
+    // Filter by status
+    if (status) {
+      query.status = status;
+    }
+
+    // Filter upcoming appointments
+    if (upcoming) {
+      const now = new Date();
+      query.appointmentDate = { $gte: now };
+      query.status = { $in: ['Scheduled', 'Confirmed'] };
+    }
+
+    // Get appointments
     const appointments = await Appointment.find(query)
       .populate('patientId', 'fullName patientId phoneNumber')
       .sort({ appointmentDate: 1, appointmentTime: 1 })
@@ -83,20 +80,28 @@ export async function GET(request) {
 
     const total = await Appointment.countDocuments(query);
 
-    // Stats for the dashboard header
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
+    // Count today's appointments (for admin dashboard)
+    let todayCount = 0;
+    if (user.role !== 'user') {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
 
-    const todayCount = await Appointment.countDocuments({
-      appointmentDate: { $gte: today, $lt: tomorrow },
-      status: { $in: ['Scheduled', 'Confirmed'] },
-    });
+      todayCount = await Appointment.countDocuments({
+        appointmentDate: { $gte: today, $lt: tomorrow },
+        status: { $in: ['Scheduled', 'Confirmed'] },
+      });
+    }
 
     return NextResponse.json({
       appointments,
-      pagination: { page, limit, total, pages: Math.ceil(total / limit) },
+      pagination: {
+        page,
+        limit,
+        total,
+        pages: Math.ceil(total / limit),
+      },
       todayCount,
     });
   } catch (error) {
@@ -108,7 +113,7 @@ export async function GET(request) {
   }
 }
 
-// POST — Create new appointment
+// POST - Create new appointment
 export async function POST(request) {
   try {
     const user = getUserFromRequest(request);
@@ -128,84 +133,108 @@ export async function POST(request) {
       );
     }
 
-    // Must have either a linked patient or walk-in details
-    if (
-      !body.patientId &&
-      (!body.walkInPatient?.fullName || !body.walkInPatient?.phoneNumber)
-    ) {
+    // Validate patient reference
+    if (!body.patientId && !body.walkInPatient) {
       return NextResponse.json(
-        {
-          error:
-            'Either select an existing patient or provide walk-in name and phone number',
-        },
+        { error: 'Either patientId or walkInPatient information is required' },
         { status: 400 },
       );
     }
 
-    // Verify patient exists if ID provided
-    if (body.patientId) {
-      const patient = await Patient.findById(body.patientId);
-      if (!patient) {
+    // If walk-in, validate walk-in patient data
+    if (body.walkInPatient) {
+      if (!body.walkInPatient.fullName || !body.walkInPatient.phoneNumber) {
         return NextResponse.json(
-          { error: 'Patient not found' },
-          { status: 404 },
+          { error: 'Walk-in patient requires full name and phone number' },
+          { status: 400 },
         );
       }
     }
 
-    // Check for scheduling conflicts (same date + time + assignedTo)
+    // Validate appointment is not in the past
+    const appointmentDateTime = new Date(
+      `${body.appointmentDate}T${body.appointmentTime}`,
+    );
+    const now = new Date();
+
+    if (appointmentDateTime < now) {
+      return NextResponse.json(
+        { error: 'Appointment date and time cannot be in the past' },
+        { status: 400 },
+      );
+    }
+
+    // Check for conflicting appointments (same date/time, same assigned staff)
     if (body.assignedTo) {
-      const conflict = await Appointment.findOne({
-        appointmentDate: new Date(body.appointmentDate),
+      const conflictingAppointment = await Appointment.findOne({
+        appointmentDate: body.appointmentDate,
         appointmentTime: body.appointmentTime,
         assignedTo: body.assignedTo,
         status: { $in: ['Scheduled', 'Confirmed'] },
       });
-      if (conflict) {
+
+      if (conflictingAppointment) {
         return NextResponse.json(
           {
             error: `${body.assignedTo} already has an appointment at this time`,
           },
-          { status: 409 },
+          { status: 400 },
         );
       }
     }
 
+    // Prepare appointment data
     const appointmentData = {
-      patientId: body.patientId || null,
-      walkInPatient: body.patientId
-        ? undefined
-        : {
-            fullName: body.walkInPatient?.fullName || '',
-            phoneNumber: body.walkInPatient?.phoneNumber || '',
-          },
-      appointmentDate: new Date(body.appointmentDate),
+      appointmentDate: body.appointmentDate,
       appointmentTime: body.appointmentTime,
       duration: body.duration || 30,
       type: body.type,
       reason: body.reason || '',
       assignedTo: body.assignedTo || '',
       location: body.location || 'Clinic',
-      status: body.status || 'Scheduled',
+      status: 'Scheduled',
       notes: body.notes || '',
+      createdBy: body.createdBy || user.username,
       reminderSent: false,
-      createdBy: String(user.userId),
     };
 
+    // Add patient reference or walk-in data
+    if (body.patientId) {
+      appointmentData.patientId = body.patientId;
+      appointmentData.walkInPatient = null;
+    } else if (body.walkInPatient) {
+      appointmentData.patientId = null;
+      appointmentData.walkInPatient = {
+        fullName: body.walkInPatient.fullName,
+        phoneNumber: body.walkInPatient.phoneNumber,
+      };
+    }
+
+    // Create appointment
     const appointment = new Appointment(appointmentData);
     await appointment.save();
 
-    await appointment.populate('patientId', 'fullName patientId phoneNumber');
+    // Populate patient data if linked
+    if (appointment.patientId) {
+      await appointment.populate('patientId', 'fullName patientId phoneNumber');
+    }
+
+    // TODO: Send appointment confirmation email/SMS
+    // TODO: Schedule reminder notification
 
     return NextResponse.json(
-      { message: 'Appointment scheduled successfully', appointment },
+      {
+        message: 'Appointment created successfully',
+        appointment,
+      },
       { status: 201 },
     );
   } catch (error) {
     console.error('Error creating appointment:', error);
 
+    // Handle mongoose validation errors
     if (error.name === 'ValidationError') {
-      const messages = Object.values(error.errors).map((e) => e.message);
+      const messages = Object.values(error.errors).map((err) => err.message);
       return NextResponse.json(
         { error: `Validation error: ${messages.join(', ')}` },
         { status: 400 },

@@ -2,28 +2,36 @@ import { NextResponse } from 'next/server';
 import connectDB from '../../../lib/mongodb';
 // import Booking from '../../../models/Booking';
 import Bookedappointment from '../../../models/Bookedappointment';
+import { getUserFromRequest } from '../../../lib/auth';
 
 // GET all bookings (for admin/staff dashboard)
 export async function GET(request) {
   try {
     // Authentication check - only admin and doctor roles can view all bookings
-    const token = request.headers.get('authorization')?.replace('Bearer ', '');
+    const authHeader = request.headers.get('authorization');
 
-    if (token) {
+    if (authHeader) {
       // If token provided, verify user role
       try {
-        const { getUserFromRequest } = await import('../../../lib/auth');
         const user = getUserFromRequest(request);
 
-        if (!user || !['admin', 'doctor'].includes(user.role)) {
+        if (!user) {
+          return NextResponse.json(
+            { error: 'Invalid authentication token' },
+            { status: 401 },
+          );
+        }
+
+        if (!['admin', 'doctor'].includes(user.role)) {
           return NextResponse.json(
             { error: 'Access denied. Admin or Doctor role required.' },
             { status: 403 },
           );
         }
       } catch (error) {
+        console.error('Auth error:', error);
         return NextResponse.json(
-          { error: 'Invalid authentication token' },
+          { error: 'Authentication failed' },
           { status: 401 },
         );
       }

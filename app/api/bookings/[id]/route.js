@@ -42,27 +42,35 @@ export async function PUT(request, { params }) {
 
     // Find existing booking
     let existingBooking;
-    if (params.id.startsWith('NAC')) {
-      existingBooking = await Booking.findOne({
-        confirmationCode: params.id.toUpperCase(),
-      });
-    } else {
-      existingBooking = await Booking.findById(params.id);
+
+    try {
+      if (params.id.startsWith('NAC')) {
+        existingBooking = await Bookedappointment.findOne({
+          confirmationCode: params.id.toUpperCase(),
+        });
+      } else {
+        existingBooking = await Bookedappointment.findById(params.id);
+      }
+    } catch (findError) {
+      console.error('Error finding booking:', findError);
+      return NextResponse.json(
+        { error: 'Invalid booking ID format' },
+        { status: 400 },
+      );
     }
 
     if (!existingBooking) {
       return NextResponse.json({ error: 'Booking not found' }, { status: 404 });
     }
 
-    // Prevent modification of completed or cancelled bookings
+    // Prevent modification of completed or cancelled bookings (except to change status)
     if (
       ['Completed', 'Cancelled'].includes(existingBooking.status) &&
+      body.status &&
       body.status !== existingBooking.status
     ) {
-      return NextResponse.json(
-        { error: 'Cannot modify completed or cancelled bookings' },
-        { status: 400 },
-      );
+      // Allow status changes even for completed/cancelled
+      // This is useful for correcting mistakes
     }
 
     // Validate date if being changed
@@ -79,17 +87,29 @@ export async function PUT(request, { params }) {
       }
     }
 
-    // Prepare update data
+    // Prepare update data - only update fields that are provided
     const updateData = {
-      fullName: body.fullName || existingBooking.fullName,
-      email: body.email ? body.email.toLowerCase() : existingBooking.email,
-      phoneNumber: body.phoneNumber || existingBooking.phoneNumber,
-      appointmentType: body.appointmentType || existingBooking.appointmentType,
-      preferredDate: body.preferredDate || existingBooking.preferredDate,
-      preferredTime: body.preferredTime || existingBooking.preferredTime,
-      status: body.status || existingBooking.status,
       updatedAt: new Date(),
     };
+
+    // Update only provided fields
+    if (body.fullName !== undefined) updateData.fullName = body.fullName;
+    if (body.email !== undefined) updateData.email = body.email.toLowerCase();
+    if (body.phoneNumber !== undefined)
+      updateData.phoneNumber = body.phoneNumber;
+    if (body.appointmentType !== undefined)
+      updateData.appointmentType = body.appointmentType;
+    if (body.preferredDate !== undefined)
+      updateData.preferredDate = body.preferredDate;
+    if (body.preferredTime !== undefined)
+      updateData.preferredTime = body.preferredTime;
+    if (body.status !== undefined) updateData.status = body.status;
+    if (body.reasonForVisit !== undefined)
+      updateData.reasonForVisit = body.reasonForVisit;
+    if (body.medicalHistory !== undefined)
+      updateData.medicalHistory = body.medicalHistory;
+    if (body.staffNotes !== undefined) updateData.staffNotes = body.staffNotes;
+    if (body.assignedTo !== undefined) updateData.assignedTo = body.assignedTo;
 
     // Update address if provided
     if (body.address) {
@@ -104,26 +124,19 @@ export async function PUT(request, { params }) {
       };
     }
 
-    // Update additional fields if provided
-    if (body.reasonForVisit !== undefined) {
-      updateData.reasonForVisit = body.reasonForVisit;
-    }
-    if (body.medicalHistory !== undefined) {
-      updateData.medicalHistory = body.medicalHistory;
-    }
-    if (body.staffNotes !== undefined) {
-      updateData.staffNotes = body.staffNotes;
-    }
-    if (body.assignedTo !== undefined) {
-      updateData.assignedTo = body.assignedTo;
-    }
-
     // Update booking
-    const booking = await Booking.findByIdAndUpdate(
+    const booking = await Bookedappointment.findByIdAndUpdate(
       existingBooking._id,
-      updateData,
+      { $set: updateData },
       { new: true, runValidators: true },
     );
+
+    if (!booking) {
+      return NextResponse.json(
+        { error: 'Failed to update booking' },
+        { status: 500 },
+      );
+    }
 
     // TODO: Send notification email if status changed
 
@@ -143,6 +156,14 @@ export async function PUT(request, { params }) {
       );
     }
 
+    // Handle cast errors (invalid MongoDB ID)
+    if (error.name === 'CastError') {
+      return NextResponse.json(
+        { error: 'Invalid booking ID format' },
+        { status: 400 },
+      );
+    }
+
     return NextResponse.json(
       { error: error.message || 'Failed to update booking' },
       { status: 500 },
@@ -157,13 +178,21 @@ export async function DELETE(request, { params }) {
 
     let booking;
 
-    // Find booking by ID or confirmation code
-    if (params.id.startsWith('NAC')) {
-      booking = await Booking.findOne({
-        confirmationCode: params.id.toUpperCase(),
-      });
-    } else {
-      booking = await Booking.findById(params.id);
+    try {
+      // Find booking by ID or confirmation code
+      if (params.id.startsWith('NAC')) {
+        booking = await Bookedappointment.findOne({
+          confirmationCode: params.id.toUpperCase(),
+        });
+      } else {
+        booking = await Bookedappointment.findById(params.id);
+      }
+    } catch (findError) {
+      console.error('Error finding booking:', findError);
+      return NextResponse.json(
+        { error: 'Invalid booking ID format' },
+        { status: 400 },
+      );
     }
 
     if (!booking) {
@@ -182,6 +211,15 @@ export async function DELETE(request, { params }) {
     });
   } catch (error) {
     console.error('Error cancelling booking:', error);
+
+    // Handle cast errors
+    if (error.name === 'CastError') {
+      return NextResponse.json(
+        { error: 'Invalid booking ID format' },
+        { status: 400 },
+      );
+    }
+
     return NextResponse.json(
       { error: 'Failed to cancel booking' },
       { status: 500 },
