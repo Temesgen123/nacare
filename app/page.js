@@ -1,8 +1,8 @@
 'use client';
-
 import { useRouter } from 'next/navigation';
 import s from './home.module.css';
 import Link from 'next/link';
+import NacareLogo from '../components/NacareLogo';
 
 export default function HomePage() {
   const router = useRouter();
@@ -12,7 +12,8 @@ export default function HomePage() {
       {/* ── NAV ── */}
       <nav className={s.nav}>
         <a className={s.navBrand} href="/">
-          <div className={s.navLogo}>
+          <NacareLogo size="medium" showText="true" />
+          {/* <div className={s.navLogo}>
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
@@ -21,8 +22,8 @@ export default function HomePage() {
                 d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
               />
             </svg>
-          </div>
-          <span className={s.navName}>Nacare Health</span>
+          </div> */}
+          {/* <span className={s.navName}>Nacare Health</span> */}
         </a>
         <div className={s.navLinks}>
           <button
@@ -53,7 +54,7 @@ export default function HomePage() {
             Doctor visits, lab testing, and chronic care delivered to your home.
           </p>
           <ul
-            className={`${s.heroSubtitle} pl-12 md:pl-24 list-disc mt-3 mb-5 leading-normal`}
+            className={`${s.heroSubtitleList} pl-12 md:pl-18 list-disc  mb-5 leading-normal`}
           >
             <li>Licenced Medical Professional.</li>
             <li>Confidential & Secure.</li>
@@ -192,17 +193,16 @@ export default function HomePage() {
       {/* ── CTA BANNER ── */}
       <section className={s.ctaBanner}>
         <div className={s.ctaTitle}>Ready to get started?</div>
-        <div className={s.ctaSub}>
-          Join Nacare Health&apos;s management system today.
-        </div>
-        <button className={s.btnCta} onClick={() => router.push('/register')}>
+        <div className={s.ctaSub}>Join Nacare Health&apos;s today.</div>
+        {/* <button className={s.btnCta} onClick={() => router.push('/register')}>
           Create Your Account
-        </button>
+        </button> */}
       </section>
 
       {/* ── FOOTER ── */}
       <footer className={s.footer}>
-        <div className={s.footerBrand}>Nacare Health</div>
+        <NacareLogo />
+        {/* <div className={s.footerBrand}>Nacare Health</div> */}
         <div className={s.footerCopy}>
           &copy; {new Date().getFullYear()} Nacare Health. All rights reserved.
         </div>

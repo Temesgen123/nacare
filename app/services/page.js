@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import s from '../home.module.css';
+import NacareLogo from '../../components/NacareLogo';
 
 export default function ServicesPage() {
   const router = useRouter();
@@ -12,7 +13,8 @@ export default function ServicesPage() {
       {/* ── NAV ── */}
       <nav className={s.nav}>
         <a className={s.navBrand} href="/">
-          <div className={s.navLogo}>
+          <NacareLogo size="medium" showText={true} />
+          {/* <div className={s.navLogo}>
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
@@ -22,7 +24,7 @@ export default function ServicesPage() {
               />
             </svg>
           </div>
-          <span className={s.navName}>Nacare Health</span>
+          <span className={s.navName}>Nacare Health</span> */}
         </a>
         <div className={s.navLinks}>
           <Link href="/" className={s.btnNavGhost}>
@@ -343,7 +345,8 @@ export default function ServicesPage() {
 
       {/* ── FOOTER ── */}
       <footer className={s.footer}>
-        <div className={s.footerBrand}>Nacare Health</div>
+        {/* <div className={s.footerBrand}>Nacare Health</div> */}
+        <NacareLogo />
         <div className={s.footerLinks}>
           <Link href="/">Home</Link>
           <Link href="/about">About</Link>

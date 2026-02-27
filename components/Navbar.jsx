@@ -2,6 +2,7 @@
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import NacareLogo from './NacareLogo';
 import {
   Users,
   Activity,
@@ -60,6 +61,7 @@ export default function Navbar() {
           {/* Logo and Navigation */}
           <div className="flex">
             {/* Logo */}
+            <NacareLogo size="default" showText={true} />
             <div className="flex-shrink-0 flex items-center">
               <Link href="/dashboard" className="flex items-center space-x-2">
                 <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">

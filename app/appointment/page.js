@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import s from '../home.module.css';
+import NacareLogo from '../../components/NacareLogo';
 
 export default function AppointmentPage() {
   const router = useRouter();
@@ -105,7 +106,8 @@ export default function AppointmentPage() {
       {/* ── NAV ── */}
       <nav className={s.nav}>
         <a className={s.navBrand} href="/">
-          <div className={s.navLogo}>
+          <NacareLogo size="medium" showText={true} />
+          {/* <div className={s.navLogo}>
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
@@ -114,8 +116,8 @@ export default function AppointmentPage() {
                 d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
               />
             </svg>
-          </div>
-          <span className={s.navName}>Nacare Health</span>
+          </div> */}
+          {/* <span className={s.navName}>Nacare Health</span> */}
         </a>
         <div className={s.navLinks}>
           <Link href="/" className={s.btnNavGhost}>
@@ -705,14 +707,15 @@ export default function AppointmentPage() {
       <section className={s.ctaBanner}>
         <div className={s.ctaTitle}>Need help with your booking?</div>
         <div className={s.ctaSub}>Contact us anytime at +251 911 234 567</div>
-        <button className={s.btnCta} onClick={() => router.push('/Contact')}>
+        <button className={s.btnCta} onClick={() => router.push('/contact')}>
           Contact Us
         </button>
       </section>
 
       {/* ── FOOTER ── */}
       <footer className={s.footer}>
-        <div className={s.footerBrand}>Nacare Health</div>
+        <NacareLogo />
+        {/* <div className={s.footerBrand}>Nacare Health</div> */}
         <div className={s.footerLinks}>
           <Link href="/">Home</Link>
           <Link href="/about">About</Link>

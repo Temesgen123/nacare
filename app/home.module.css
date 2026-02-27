@@ -22,7 +22,7 @@
   padding: 1.25rem 3rem;
   background: rgba(250, 248, 244, 0.88);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(15, 123, 108, 0.08);
+  border-bottom: 1px solid rgba(91, 61, 161, 0.08);
 }
 .navBrand {
   display: flex;
@@ -33,7 +33,7 @@
 .navLogo {
   width: 36px;
   height: 36px;
-  background: var(--teal);
+  background: var(--purple);
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -68,7 +68,7 @@
   transition: background 0.15s;
 }
 .btnNavGhost:hover {
-  background: rgba(15, 123, 108, 0.07);
+  background: rgba(91, 61, 161, 0.07);
 }
 .btnNavPrimary {
   padding: 0.5rem 1.25rem;
@@ -76,7 +76,7 @@
   font-size: 0.875rem;
   font-weight: 500;
   color: white;
-  background: var(--teal);
+  background: var(--purple);
   border: none;
   cursor: pointer;
   transition:
@@ -84,7 +84,7 @@
     transform 0.1s;
 }
 .btnNavPrimary:hover {
-  background: var(--teal-dark);
+  background: var(--purple-dark);
   transform: translateY(-1px);
 }
 
@@ -106,8 +106,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(15, 123, 108, 0.08);
-  color: var(--teal);
+  background: rgba(91, 61, 161, 0.08);
+  color: var(--purple);
   font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -120,7 +120,7 @@
 .heroEyebrowDot {
   width: 6px;
   height: 6px;
-  background: var(--teal);
+  background: var(--purple);
   border-radius: 50%;
 }
 .heroTitle {
@@ -134,10 +134,9 @@
 }
 .heroTitle em {
   font-style: italic;
-  color: var(--teal);
+  color: var(--purple);
 }
 .heroSubtitle {
-  /* new */
   font-family:
     'Inter',
     system-ui,
@@ -150,6 +149,22 @@
   letter-spacing: 0.01em;
   color: #5f6c72;
   max-width: 52ch;
+  margin-bottom: 1rem;
+}
+.heroSubtitleList {
+  font-family:
+    'Inter',
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-size: clamp(1rem, 2.2vw, 1.15rem);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  color: #5f6c72;
+  max-width: 52ch;
+  margin-bottom: 2rem;
 }
 .heroCtas {
   display: flex;
@@ -158,7 +173,7 @@
 }
 .btnPrimary {
   padding: 0.875rem 2rem;
-  background: var(--teal);
+  background: var(--purple);
   color: white;
   border: none;
   border-radius: 10px;
@@ -170,12 +185,12 @@
     background 0.15s,
     transform 0.1s,
     box-shadow 0.15s;
-  box-shadow: 0 4px 20px rgba(15, 123, 108, 0.25);
+  box-shadow: 0 4px 20px rgba(91, 61, 161, 0.25);
 }
 .btnPrimary:hover {
-  background: var(--teal-dark);
+  background: var(--purple-dark);
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(15, 123, 108, 0.3);
+  box-shadow: 0 8px 28px rgba(91, 61, 161, 0.3);
 }
 .btnOutline {
   padding: 0.875rem 2rem;
@@ -192,8 +207,8 @@
     transform 0.1s;
 }
 .btnOutline:hover {
-  border-color: var(--teal);
-  color: var(--teal);
+  border-color: var(--purple);
+  color: var(--purple);
   transform: translateY(-2px);
 }
 .heroStats {
@@ -207,7 +222,7 @@
   font-family: 'Cormorant Garamond', serif;
   font-size: 2rem;
   font-weight: 600;
-  color: var(--teal);
+  color: var(--purple);
   line-height: 1;
 }
 .statLabel {
@@ -227,8 +242,7 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(135deg, rgba(15, 123, 108, 0.15) 0%, transparent 50%),
-    /* url('https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=900&q=80&fit=crop') */
+    linear-gradient(135deg, rgba(91, 61, 161, 0.15) 0%, transparent 50%),
     url('/doctor.png') center/cover no-repeat;
 }
 .heroImageOverlay {
@@ -250,7 +264,7 @@
 .heroCardIcon {
   width: 36px;
   height: 36px;
-  background: rgba(15, 123, 108, 0.1);
+  background: rgba(91, 61, 161, 0.1);
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -260,7 +274,7 @@
 .heroCardIcon svg {
   width: 18px;
   height: 18px;
-  color: var(--teal);
+  color: var(--purple);
 }
 .heroCardTitle {
   font-size: 0.8125rem;
@@ -277,10 +291,10 @@
   position: absolute;
   top: 2.5rem;
   right: 2rem;
-  background: var(--teal);
+  background: var(--purple);
   border-radius: 16px;
   padding: 1.25rem 1.5rem;
-  box-shadow: 0 20px 60px rgba(15, 123, 108, 0.35);
+  box-shadow: 0 20px 60px rgba(91, 61, 161, 0.35);
   width: 190px;
   animation: slideDown 0.9s ease 0.6s both;
 }
@@ -320,7 +334,7 @@
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--teal);
+  color: var(--purple);
   margin-bottom: 1rem;
 }
 .sectionTitle {
@@ -349,12 +363,13 @@
 }
 .featureCard:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 40px rgba(91, 61, 161, 0.12);
+  border-color: rgba(91, 61, 161, 0.15);
 }
 .featureIcon {
   width: 48px;
   height: 48px;
-  background: rgba(15, 123, 108, 0.08);
+  background: rgba(91, 61, 161, 0.08);
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -364,13 +379,21 @@
 .featureIcon svg {
   width: 22px;
   height: 22px;
-  color: var(--teal);
+  color: var(--purple);
 }
 .featureTitle {
   font-size: 1.0625rem;
   font-weight: 500;
   color: var(--charcoal);
   margin-bottom: 0.5rem;
+}
+.featureTitle a {
+  color: var(--charcoal);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.featureTitle a:hover {
+  color: var(--purple);
 }
 .featureDesc {
   font-size: 0.875rem;
@@ -381,7 +404,7 @@
 
 /* ── CTA BANNER ── */
 .ctaBanner {
-  background: var(--teal-dark);
+  background: linear-gradient(135deg, var(--purple-dark) 0%, var(--navy) 100%);
   padding: 5rem 4rem;
   text-align: center;
   position: relative;
@@ -414,18 +437,22 @@
   color: white;
   letter-spacing: -0.02em;
   margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
 }
 .ctaSub {
   font-size: 1rem;
   color: rgba(255, 255, 255, 0.65);
   font-weight: 300;
   margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
 }
 .btnCta {
   display: inline-block;
   padding: 0.9rem 2.25rem;
   background: white;
-  color: var(--teal-dark);
+  color: var(--purple-dark);
   border: none;
   border-radius: 10px;
   font-size: 0.9375rem;
@@ -436,6 +463,8 @@
     transform 0.15s,
     box-shadow 0.15s;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 1;
 }
 .btnCta:hover {
   transform: translateY(-2px);
@@ -449,6 +478,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 .footerBrand {
   font-family: 'Cormorant Garamond', serif;
@@ -487,13 +518,6 @@
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
   margin-bottom: 3rem;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .contactGrid {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* ── ANIMATIONS ── */
@@ -565,5 +589,14 @@
     flex-direction: column;
     gap: 0.5rem;
     text-align: center;
+  }
+  .contactGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .contactGrid {
+    grid-template-columns: 1fr;
   }
 }

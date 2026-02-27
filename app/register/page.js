@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
+import NacareLogo from '../../components/NacareLogo';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -172,7 +173,11 @@ export default function RegisterPage() {
           position: relative;
           overflow: hidden;
           background:
-            linear-gradient(160deg, rgba(10,92,81,0.85) 0%, rgba(15,123,108,0.75) 100%),
+          linear-gradient(
+    160deg,
+    rgba(124, 92, 214, 0.85) 0%,
+    rgba(91, 61, 161, 0.9) 100%
+  ),
             url('https://images.unsplash.com/photo-1551884170-09fb70a3a2ed?w=900&q=80&fit=crop') center/cover no-repeat;
           display: flex;
           flex-direction: column;
@@ -209,7 +214,8 @@ export default function RegisterPage() {
             </button>
 
             <div className="auth-logo">
-              <div className="auth-logo-icon">
+              <NacareLogo />
+              {/* <div className="auth-logo-icon">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
@@ -219,7 +225,7 @@ export default function RegisterPage() {
                   />
                 </svg>
               </div>
-              <span className="auth-logo-name">Nacare Clinic</span>
+              <span className="auth-logo-name">Nacare Clinic</span> */}
             </div>
 
             <h1 className="auth-heading">Create account</h1>

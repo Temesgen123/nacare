@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
+import NacareLogo from '../../components/NacareLogo';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -155,7 +156,8 @@ export default function LoginPage() {
           position: relative;
           overflow: hidden;
           background:
-            linear-gradient(160deg, rgba(15,123,108,0.8) 0%, rgba(10,92,81,0.92) 100%),
+           linear-gradient(160deg, rgba(124, 92, 214, 0.85) 0%, rgba(91, 61, 161, 0.9) 100%
+                          ),           
             url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=900&q=80&fit=crop') center/cover no-repeat;
           display: flex;
           flex-direction: column;
@@ -190,20 +192,22 @@ export default function LoginPage() {
             <button className="auth-back" onClick={() => router.push('/')}>
               ← Back to home
             </button>
-            <div className="auth-logo">
-              <div className="auth-logo-icon">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <NacareLogo size="medium" />
+            {/* <div className="auth-logo"> */}
+
+            {/* <div className="auth-logo-icon"> */}
+            {/* <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
                     d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                   />
-                </svg>
-              </div>
-              <span className="auth-logo-name">Nacare Clinic</span>
-            </div>
+                </svg> */}
 
+            {/* </div> */}
+            {/* <span className="auth-logo-name">Nacare Clinic</span> */}
+            {/* </div> */}
             <h1 className="auth-heading">Welcome back</h1>
             <p className="auth-sub">Sign in to your account to continue</p>
 

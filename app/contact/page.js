@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import s from '../home.module.css';
+import NacareLogo from '../../components/NacareLogo';
 
 export default function ContactPage() {
   const router = useRouter();
@@ -47,7 +48,7 @@ export default function ContactPage() {
       {/* ── NAV ── */}
       <nav className={s.nav}>
         <a className={s.navBrand} href="/">
-          <div className={s.navLogo}>
+          {/* <div className={s.navLogo}>
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
@@ -57,7 +58,8 @@ export default function ContactPage() {
               />
             </svg>
           </div>
-          <span className={s.navName}>Nacare Health</span>
+          <span className={s.navName}>Nacare Health</span> */}
+          <NacareLogo size="medium" showText={true} />
         </a>
         <div className={s.navLinks}>
           <Link href="/" className={s.btnNavGhost}>
@@ -577,7 +579,8 @@ export default function ContactPage() {
 
       {/* ── FOOTER ── */}
       <footer className={s.footer}>
-        <div className={s.footerBrand}>Nacare Health</div>
+        <NacareLogo />
+        {/* <div className={s.footerBrand}>Nacare Health</div> */}
         <div className={s.footerLinks}>
           <Link href="/">Home</Link>
           <Link href="/about">About</Link>

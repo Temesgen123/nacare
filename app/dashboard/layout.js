@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import toast from 'react-hot-toast';
+import NacareLogo from '../../components/NacareLogo';
 
 // Nav items — allowedRoles: null means all roles can see it
 const NAV_ITEMS = [
@@ -163,8 +164,10 @@ export default function DashboardLayout({ children }) {
     <aside className="flex flex-col h-full bg-white border-r border-gray-200 w-64">
       {/* Brand */}
       <div className="flex items-center gap-3 px-5 py-5 border-b border-gray-100">
-        <div className="w-9 h-9 bg-primary-600 rounded-xl flex items-center justify-center flex-shrink-0">
-          <svg
+        <NacareLogo size="medium" />
+        {/* <div className="w-9 h-9 bg-primary-600 rounded-xl flex items-center justify-center flex-shrink-0"> */}
+
+        {/* <svg
             className="w-5 h-5 text-white"
             fill="none"
             stroke="currentColor"
@@ -176,11 +179,11 @@ export default function DashboardLayout({ children }) {
               strokeWidth={2}
               d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
             />
-          </svg>
-        </div>
-        <span className="font-semibold text-gray-900 text-sm">
+          </svg> */}
+        {/* </div> */}
+        {/* <span className="font-semibold text-gray-900 text-sm">
           Nacare Clinic
-        </span>
+        </span> */}
       </div>
 
       {/* Nav */}
