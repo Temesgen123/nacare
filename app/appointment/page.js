@@ -715,9 +715,9 @@ export default function AppointmentPage() {
         <div className={s.footerBrand}>Nacare Health</div>
         <div className={s.footerLinks}>
           <Link href="/">Home</Link>
-          <Link href="/About">About</Link>
-          <Link href="/Services">Services</Link>
-          <Link href="/Contact">Contact</Link>
+          <Link href="/about">About</Link>
+          <Link href="/services">Services</Link>
+          <Link href="/contact">Contact</Link>
         </div>
         <div className={s.footerCopy}>
           &copy; {new Date().getFullYear()} Nacare Health. All rights reserved.
