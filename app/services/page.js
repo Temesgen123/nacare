@@ -34,12 +34,12 @@ export default function ServicesPage() {
           >
             Sign In
           </button>
-          <button
+          {/* <button
             className={s.btnNavPrimary}
             onClick={() => router.push('/register')}
           >
             Get Started
-          </button>
+          </button> */}
         </div>
       </nav>
 
