@@ -15,7 +15,7 @@ export default function HomePage() {
           <NacareLogo size="medium" showText="true" />
         </a>
         <div className={s.navLinks}>
-          <Link href="/" className={s.btnNavGhost}>
+          <Link href="/" className={`${s.btnNavGhost} hidden md:block`}>
             Home
           </Link>
           <Link href="/about" className={`${s.btnNavGhost} hidden md:block`}>

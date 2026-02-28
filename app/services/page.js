@@ -27,7 +27,7 @@ export default function ServicesPage() {
           <span className={s.navName}>Nacare Health</span> */}
         </a>
         <div className={s.navLinks}>
-          <Link href="/" className={s.btnNavGhost}>
+          <Link href="/" className={`${s.btnNavGhost} hidden md:block`}>
             Home
           </Link>
           <Link href="/about" className={`${s.btnNavGhost} hidden md:block`}>
