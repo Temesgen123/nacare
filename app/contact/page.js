@@ -78,10 +78,10 @@ export default function ContactPage() {
           <Link href="/" className={s.btnNavGhost}>
             Home
           </Link>
-          <Link href="/about" className={s.btnNavGhost}>
+          <Link href="/about" className={`${s.btnNavGhost} hidden md:block`}>
             About
           </Link>
-          <Link href="/services" className={s.btnNavGhost}>
+          <Link href="/services" className={`${s.btnNavGhost} hidden md:block`}>
             Services
           </Link>
           <button

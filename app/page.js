@@ -18,13 +18,13 @@ export default function HomePage() {
           <Link href="/" className={s.btnNavGhost}>
             Home
           </Link>
-          <Link href="/about" className={s.btnNavGhost}>
+          <Link href="/about" className={`${s.btnNavGhost} hidden md:block`}>
             About
           </Link>
-          <Link href="/services" className={s.btnNavGhost}>
+          <Link href="/services" className={`${s.btnNavGhost} hidden md:block`}>
             Services
           </Link>
-          <Link href="/contact" className={s.btnNavGhost}>
+          <Link href="/contact" className={`${s.btnNavGhost} hidden md:block`}>
             Contact
           </Link>
           <button
