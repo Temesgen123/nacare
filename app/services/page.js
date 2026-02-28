@@ -30,18 +30,21 @@ export default function ServicesPage() {
           <Link href="/" className={s.btnNavGhost}>
             Home
           </Link>
+          <Link href="/about" className={s.btnNavGhost}>
+            About
+          </Link>
+          <Link href="/services" className={s.btnNavGhost}>
+            Services
+          </Link>
+          <Link href="/contact" className={s.btnNavGhost}>
+            Contact
+          </Link>
           <button
-            className={s.btnNavGhost}
+            className={s.btnNavPrimary}
             onClick={() => router.push('/login')}
           >
             Sign In
           </button>
-          {/* <button
-            className={s.btnNavPrimary}
-            onClick={() => router.push('/register')}
-          >
-            Get Started
-          </button> */}
         </div>
       </nav>
 

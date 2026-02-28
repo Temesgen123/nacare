@@ -13,21 +13,22 @@ export default function HomePage() {
       <nav className={s.nav}>
         <a className={s.navBrand} href="/">
           <NacareLogo size="medium" showText="true" />
-          {/* <div className={s.navLogo}>
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-              />
-            </svg>
-          </div> */}
-          {/* <span className={s.navName}>Nacare Health</span> */}
         </a>
         <div className={s.navLinks}>
+          <Link href="/" className={s.btnNavGhost}>
+            Home
+          </Link>
+          <Link href="/about" className={s.btnNavGhost}>
+            About
+          </Link>
+          <Link href="/services" className={s.btnNavGhost}>
+            Services
+          </Link>
+          <Link href="/contact" className={s.btnNavGhost}>
+            Contact
+          </Link>
           <button
-            className={s.btnNavGhost}
+            className={s.btnNavPrimary}
             onClick={() => router.push('/login')}
           >
             Sign In

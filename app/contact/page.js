@@ -17,21 +17,36 @@ export default function ContactPage() {
   });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+    setError('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
 
-    // Simulate form submission
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const response = await fetch('/api/contacts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message');
+      }
+
       setSubmitted(true);
       setFormData({
         name: '',
@@ -40,7 +55,16 @@ export default function ContactPage() {
         subject: '',
         message: '',
       });
-    }, 1000);
+
+      setTimeout(() => {
+        setSubmitted(false);
+      }, 5000);
+    } catch (error) {
+      console.error('Error submitting contact form:', error);
+      setError(error.message || 'Failed to send message. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -48,35 +72,24 @@ export default function ContactPage() {
       {/* ── NAV ── */}
       <nav className={s.nav}>
         <a className={s.navBrand} href="/">
-          {/* <div className={s.navLogo}>
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-              />
-            </svg>
-          </div>
-          <span className={s.navName}>Nacare Health</span> */}
-          <NacareLogo size="medium" showText={true} />
+          <NacareLogo size="small" showText={true} />
         </a>
         <div className={s.navLinks}>
           <Link href="/" className={s.btnNavGhost}>
             Home
           </Link>
+          <Link href="/about" className={s.btnNavGhost}>
+            About
+          </Link>
+          <Link href="/services" className={s.btnNavGhost}>
+            Services
+          </Link>
           <button
-            className={s.btnNavGhost}
-            onClick={() => router.push('/login')}
-          >
-            Sign In
-          </button>
-          {/* <button
             className={s.btnNavPrimary}
-            onClick={() => router.push('/register')}
+            onClick={() => router.push('/appointment')}
           >
-            Get Started
-          </button> */}
+            Book Appointment
+          </button>
         </div>
       </nav>
 
@@ -256,11 +269,9 @@ export default function ContactPage() {
                     <div>
                       <div className={s.featureTitle}>Office Location</div>
                       <div className={s.featureDesc}>
-                        Bole Sub-City
+                        Bole Sub-City, Addis Ababa
                         <br />
-                        Near Edna Mall
-                        <br />
-                        Addis Ababa, Ethiopia
+                        Near Edna Mall, Ethiopia
                       </div>
                       <div
                         style={{
@@ -269,9 +280,7 @@ export default function ContactPage() {
                           color: '#6b7280',
                         }}
                       >
-                        Mon-Fri: 8:00 AM - 6:00 PM
-                        <br />
-                        Sat: 9:00 AM - 2:00 PM
+                        Monday - Friday, 8 AM - 6 PM
                       </div>
                     </div>
                   </div>
@@ -308,15 +317,20 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <div className={s.featureTitle}>Emergency Line</div>
-                      <div className={s.featureDesc}>+251 911 000 000</div>
+                      <div className={s.featureDesc}>
+                        +251 911 999 999
+                        <br />
+                        For urgent medical assistance
+                      </div>
                       <div
                         style={{
                           marginTop: '0.5rem',
                           fontSize: '0.875rem',
-                          color: '#6b7280',
+                          color: '#dc2626',
+                          fontWeight: '500',
                         }}
                       >
-                        For urgent medical concerns
+                        24/7 Emergency Support
                       </div>
                     </div>
                   </div>
@@ -327,7 +341,7 @@ export default function ContactPage() {
             {/* Contact Form */}
             <div>
               <div className={s.sectionTag}>Send Us a Message</div>
-              <h2 className={s.sectionTitle}>Contact Form</h2>
+              <h2 className={s.sectionTitle}>Get in Touch</h2>
 
               {submitted && (
                 <div
@@ -344,6 +358,21 @@ export default function ContactPage() {
                     ✓ Thank you for contacting us! We&apos;ll get back to you
                     soon.
                   </p>
+                </div>
+              )}
+
+              {error && (
+                <div
+                  style={{
+                    background: '#fee2e2',
+                    border: '1px solid #fca5a5',
+                    borderRadius: '0.5rem',
+                    padding: '1rem',
+                    marginTop: '1rem',
+                    marginBottom: '1rem',
+                  }}
+                >
+                  <p style={{ color: '#991b1b', margin: 0 }}>⚠️ {error}</p>
                 </div>
               )}
 
@@ -499,13 +528,20 @@ export default function ContactPage() {
                   style={{
                     width: '100%',
                     padding: '0.875rem 1.5rem',
-                    background: loading ? '#9ca3af' : '#2563eb',
+                    background: loading ? '#9ca3af' : '#5b3da1',
                     color: 'white',
                     border: 'none',
                     borderRadius: '0.5rem',
                     fontSize: '1rem',
                     fontWeight: '600',
                     cursor: loading ? 'not-allowed' : 'pointer',
+                    transition: 'background-color 0.2s',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!loading) e.target.style.background = '#4c2f87';
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!loading) e.target.style.background = '#5b3da1';
                   }}
                 >
                   {loading ? 'Sending...' : 'Send Message'}
@@ -579,8 +615,7 @@ export default function ContactPage() {
 
       {/* ── FOOTER ── */}
       <footer className={s.footer}>
-        <NacareLogo />
-        {/* <div className={s.footerBrand}>Nacare Health</div> */}
+        <NacareLogo size="small" showText={true} />
         <div className={s.footerLinks}>
           <Link href="/">Home</Link>
           <Link href="/about">About</Link>
